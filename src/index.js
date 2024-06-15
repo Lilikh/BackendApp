@@ -22,11 +22,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Simple route to check server status
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 // Routes
-app.use('/users', require('./users'));
-app.use('/jobs', require('./jobs'));
+app.use('/users', require('./users')); // Adjust the path as necessary
+app.use('/jobs', require('./jobs')); // Adjust the path as necessary
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

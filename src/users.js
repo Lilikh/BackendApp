@@ -16,8 +16,13 @@ router.post('/', async (req, res) => {
         });
         res.status(201).json(newUser);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error creating user:', error.message);
+        if (error.meta && error.meta.target) {
+            // This is a Prisma specific error, e.g., unique constraint violation
+            res.status(400).json({ error: 'A user with this email already exists.' });
+        } else {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 });
 
