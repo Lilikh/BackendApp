@@ -1,6 +1,7 @@
+// users.js or similar
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, Prisma } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // POST /users
@@ -16,12 +17,11 @@ router.post('/', async (req, res) => {
         });
         res.status(201).json(newUser);
     } catch (error) {
-        console.error('Error creating user:', error.message);
-        if (error.meta && error.meta.target) {
-            // This is a Prisma specific error, e.g., unique constraint violation
-            res.status(400).json({ error: 'A user with this email already exists.' });
+        console.error('Error creating user:', error);
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            return res.status(400).json({ error: 'Invalid data provided' });
         } else {
-            res.status(500).json({ error: 'Internal Server Error' });
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 });

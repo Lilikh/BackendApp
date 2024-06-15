@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 
 // Configure CORS to allow requests from your frontend
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://your-live-frontend-domain.com'], // Update this with your frontend URLs
+  origin: ['http://localhost:5173', 'https://backendapp-lej6.onrender.com'], // Update this with your frontend URLs
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // Enable cookies to be sent with requests
   optionsSuccessStatus: 204
