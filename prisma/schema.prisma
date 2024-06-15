@@ -17,12 +17,12 @@ model User {
   id       Int      @id @default(autoincrement())
   email    String   @unique
   password String
-  jobs     Job[]
+  jobs     Job[]    // Define a relation to Job model
 }
 
 model Job {
-  id        Int     @id @default(autoincrement())
-  title     String
-  userId    Int
-  user      User    @relation(fields: [userId], references: [id])
+  id       Int    @id @default(autoincrement())
+  title    String
+  userId   Int
+  user     User    @relation(fields: [userId], references: [id]) // Define the relation to User model
 }
