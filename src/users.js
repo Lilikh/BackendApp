@@ -1,11 +1,13 @@
 // users.js or similar
 const express = require('express');
 const router = express.Router();
-const { PrismaClient, Prisma } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// POST /users
-router.post('/', async (req, res) => {
+// POST /users/signup
+router.post('/signup', async (req, res) => {
+    // Implementation for user signup (create user) endpoint
+    // Example:
     const { email, password } = req.body;
 
     try {
@@ -18,12 +20,14 @@ router.post('/', async (req, res) => {
         res.status(201).json(newUser);
     } catch (error) {
         console.error('Error creating user:', error);
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-            return res.status(400).json({ error: 'Invalid data provided' });
-        } else {
-            return res.status(500).json({ error: 'Internal Server Error' });
-        }
+        res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+// GET /users/signup (optional, for frontend routing)
+router.get('/signup', (req, res) => {
+    // Example: Send back a simple response for GET requests
+    res.send('GET request to /users/signup');
 });
 
 module.exports = router;
