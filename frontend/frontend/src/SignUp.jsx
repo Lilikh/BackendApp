@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import config from './config';  // Import the config file
 import './style.css';
 
 const CreateAccount = () => {
@@ -9,7 +8,7 @@ const CreateAccount = () => {
 
   const handleCreateAccount = async () => {
     try {
-      const response = await axios.post(`${config.backendUrl}/users/signup`, {  // Use the backend URL from config
+      const response = await axios.post('https://backendapp-lej6.onrender.com/users', {
         email,
         password,
       });
@@ -22,7 +21,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <div>
+    <div className="create-account-form">
       <h2>Create Account</h2>
       <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
